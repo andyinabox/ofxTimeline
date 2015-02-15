@@ -1,9 +1,12 @@
 # ofxTimeline #
 ![Timeline](http://www.jamesgeorge.org/images/ofxtimeline/github/Header.png)
 
+***MODIFICATIONS: This fork has hotkey modifiers disabled. Was having trouble building on rasp pi, and this was a quick fix because I didn't need the modifiers.***
+
+
 ofxTimeline is a simple to use openFrameworks add on for creating a user interface to an editable timeline. The framework allows you to compose sequences of change over time, controlling the variables in your openFrameworks application to create time based interactions.
 
-If you're familiar with timelines from programs like After Effects, Final Cut, or Blender then ofxTimeline should feel comfortable. With just a few lines of code you can add a visual editor to smoothly interpolate curves, colors, video, oscillators, audio, and 3d cameras. 
+If you're familiar with timelines from programs like After Effects, Final Cut, or Blender then ofxTimeline should feel comfortable. With just a few lines of code you can add a visual editor to smoothly interpolate curves, colors, video, oscillators, audio, and 3d cameras.
 
 You can also extend ofxTimeline with custom tracks to work with other types of time based data. Check out [Designing Custom Tracks](#designing-custom-tracks)
 
@@ -17,7 +20,7 @@ ofxTimeline is part of my reserach into how creating GUI based tools within crea
 
 Interface based timeline systems are most commonly found in expensive big box applications like After Effects or Cinema4d, which can be prohibitively complex and aren't open source. There are open timeline implementations are tied up in huge projects like [Blender](http://blender.org), [VLMC](http://www.videolan.org/vlmc/) and [Audacity](http://audacity.sourceforge.net/). Even very talented programmers have trouble extracting reusable pieces from these applications for creative reuse. Moreover their [GPL licensing](http://www.gnu.org/copyleft/gpl.html) have commercially restrictive licenses, a deal breaker for inclusion in creative coding platforms like openFrameworks, Processing, and Cinder.
 
-If the community were to build many small components for creating small and intuitive applications, what new possibilities would we uncover? What collaborations between creative coders and other designers and artists would emerge? 
+If the community were to build many small components for creating small and intuitive applications, what new possibilities would we uncover? What collaborations between creative coders and other designers and artists would emerge?
 
 ## Major features ##
 - Very few lines of code to include in openFrameworks project
@@ -40,7 +43,7 @@ https://vimeo.com/59653952
 ## Anatomy of ofxTimeline
 ![Anatomy](http://www.jamesgeorge.org/images/ofxtimeline/github/AnatomyOfTimeline.jpg)
 
-### 1 Pages 
+### 1 Pages
 
 You can divide the timeline into pages, each page containing its own set of tracks.
 
@@ -48,11 +51,11 @@ You can divide the timeline into pages, each page containing its own set of trac
 
 The header displays tick marks at minutes, seconds, and milliseconds. Clicking inside the header allows you to scrube the playhead time. The green line extending down the height of the timeline indicates the current time, while the red line  displays the hovering time.
 
-### 3 In/Out Handles 
+### 3 In/Out Handles
 
 The bar below the ticker allows you to drag the in and out points on the timeline. The region defined by the in and out point is all that is included during playback.
 
-### 4 Tracks 
+### 4 Tracks
 
 The main body of the timeline is a list of tracks that are editable and resizable.
 
@@ -118,28 +121,28 @@ Note on OS X the COMMAND key is used, on Linux and Windows the CTRL key is used
     </tr>
     <tr>
         <td>Delete all selected keyframes</td><td>delete or backspace</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Nudge keyframes a little</td><td>arrow keys</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Nudge keyframes a little more</td><td>shift+arrow keys</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Expand Focused track</td><td>alt+e</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Collapse all tracks</td><td>alt+c</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Evenly distribute track sizes</td><td>alt+shift+c</td>
-    </tr>    
+    </tr>
 </table>
 
 
 ## Including ofxTimeline in your openFrameworks project
 
-### Clone ofxTimeline and dependencies 
+### Clone ofxTimeline and dependencies
 to download the timeline open up the terminal and type
 
     $cd of_0073_osx_release/addons
@@ -189,16 +192,16 @@ in your setup of testApp.cpp file set up the timeline
 
     //--------------------------------------------------------------
     void testApp::setup(){
-      
+
       timeline.setup(); //registers events
       timeline.setDurationInSeconds(60); //sets time
       timeline.setLoopType(OF_LOOP_NORMAL); //turns the timeline to loop
-      
+
       //add a tracks, etc
       timeline.addCurves("MyCircleRadius", ofRange(0, 200));
-  
+
 in your draw or update function, read the value
-  
+
     //--------------------------------------------------------------
     void testApp::draw(){
       //the value of changingRadius will be different depending on the timeline
@@ -208,9 +211,9 @@ in your draw or update function, read the value
       //don't forget to draw your timeline so you can edit it.
       timeline.draw();
     }
-    
+
 ## Track Types
-ofxTimeline has several built in track types for doing standard timeline tasks. 
+ofxTimeline has several built in track types for doing standard timeline tasks.
 
 ### Bangs
 ![Bangs](http://www.jamesgeorge.org/images/ofxtimeline/github/BangTrack.png)
@@ -221,7 +224,7 @@ MyClass.h
 
       ofxTimeline timeline;
       void receivedBang(ofxTLBangEventArgs& bang);
-      
+
 MyClass.cpp
 
     //--------------------------------------------------------------
@@ -229,7 +232,7 @@ MyClass.cpp
       timeline.addBangs("trigger particles");
       ofAddListener(timeline.events().bangFired, this, &testApp::receivedBang);
     }
-    
+
     //--------------------------------------------------------------
     void MyClass::receivedBang(ofxTLBangEventArgs& bang){
       ofLogNotice("Bang fired from track " + bang->track.getName());
@@ -237,7 +240,7 @@ MyClass.cpp
         particleGenerator.start(); //some example response
       }
     }
-    
+
 .
 
     Inheritance: ofxTLTrack -> ofxTLKeyframes -> ofxTLBangs
@@ -257,9 +260,9 @@ Right clicking a keyframe on the timeline brings up a selection window to change
 Flags are like Bangs but allow the user to enter text on each flag. The value can be read in the event
 
     //--------------------------------------------------------------
-    void MyClass::receivedBang(ofxTLBangEventArgs& bang){      
+    void MyClass::receivedBang(ofxTLBangEventArgs& bang){
       ofLogNotice("Bang fired from track " + bang.flag);
-    }   
+    }
 
 .
 
@@ -275,15 +278,15 @@ Switches provide a simple control to turn regions of the timeline on and off.
 ### VideoTrack ###
 ![VideoTrack](http://www.jamesgeorge.org/images/ofxtimeline/github/VideoTrack.png)
 
-VideoTracks let a user interactively scrub through a video and sequence effects in time with the playback. When a video track is added the video playback will control the playback of the entire timeline. 
+VideoTracks let a user interactively scrub through a video and sequence effects in time with the playback. When a video track is added the video playback will control the playback of the entire timeline.
 
     ofxTLVideoTrack* videoTrack = timeline.addVideoTrack("Video", videoPath);
     if(videoTrack != NULL){ //in the case the video load failed check against null
         timeline.setFrameRate(videoTrack->getPlayer()->getTotalNumFrames()/videoTrack->getPlayer()->getDuration());
         timeline.setDurationInFrames(videoTrack->getPlayer()->getTotalNumFrames());
-        timeline.setTimecontrolTrack(videoTrack); //video playback will control the time        
+        timeline.setTimecontrolTrack(videoTrack); //video playback will control the time
     }
-        
+
 ,
     Inheritance: ofxTLTrack -> ofxTLImageTrack -> ofxTLVideoTrack
 
@@ -326,7 +329,7 @@ The color track let's you sequence smoothly changing colors. It uses a provided 
 ### LFO (experimental)
 ![LFO](http://www.jamesgeorge.org/images/ofxtimeline/github/LFOTrack.png)
 
-The LFO, Low Frequency Oscillator, track defines simple repeating sine waves and noise functions. 
+The LFO, Low Frequency Oscillator, track defines simple repeating sine waves and noise functions.
 
 ## 3rd Party Custom Tracks ##
 

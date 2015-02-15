@@ -57,22 +57,22 @@ bool ofGetModifierShortcutKeyPressed();
 
 //----------------------------------------
 static bool ofGetModifierAltPressed(){
-	return ofGetModifierPressed(OF_MODIFIER_KEY_ALT);
+	return false; //ofGetModifierPressed(OF_MODIFIER_KEY_ALT);
 }
 
 //----------------------------------------
 static bool ofGetModifierShiftPressed(){
-	return ofGetModifierPressed(OF_MODIFIER_KEY_SHIFT);
+	return false; //ofGetModifierPressed(OF_MODIFIER_KEY_SHIFT);
 }
 
 //----------------------------------------
 static bool ofGetModifierControlPressed(){
-	return ofGetModifierPressed(OF_MODIFIER_KEY_CTRL);
+	return false; //ofGetModifierPressed(OF_MODIFIER_KEY_CTRL);
 }
 
 //----------------------------------------
 static bool ofGetModifierSpecialPressed(){
-	return ofGetModifierPressed(OF_MODIFIER_KEY_SPECIAL);
+	return false; //ofGetModifierPressed(OF_MODIFIER_KEY_SPECIAL);
 }
 
 #endif
